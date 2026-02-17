@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 
+// ข้อมูลหมวดหมู่ทักษะและรายการทักษะต่างๆ
 const skills = {
     'Design & UX': ['UX Research', 'Wireframing & Prototyping', 'Design Systems', 'UI Components', 'UI Design'],
     'Tools & AI': ['Figma', 'Adobe Photoshop', 'Canva', 'Chat GPT', 'Gemini', 'Perplexity', 'Stitch', 'NotebookLM'],
@@ -26,6 +27,7 @@ export default function About() {
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-12 items-center">
+                    {/* ซ้าย: ข้อความแนะนำตัว */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -41,6 +43,7 @@ export default function About() {
                         </p>
                     </motion.div>
 
+                    {/* ขวา: ตารางแสดงทักษะ */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}

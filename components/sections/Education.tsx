@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
 
+// ข้อมูลประวัติการศึกษา
 const education = [
     {
         id: 1,
@@ -35,6 +36,7 @@ export default function Education() {
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </motion.div>
 
+                {/* การจัดวางแบบ Timeline */}
                 <div className="relative border-l border-slate-200 ml-3 md:ml-6 space-y-12">
                     {education.map((edu, index) => (
                         <motion.div

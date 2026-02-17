@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Award, ExternalLink } from 'lucide-react';
 
+// ข้อมูลใบรับรองพร้อมลิงก์ไปยังไฟล์ PDF
 const certifications = [
     {
         id: 1,
@@ -51,6 +52,7 @@ export default function Certification() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
+                            {/* การ์ดที่ลิงก์ไปยังไฟล์ PDF */}
                             <a
                                 href={`/Certificates/${cert.file}`}
                                 target="_blank"

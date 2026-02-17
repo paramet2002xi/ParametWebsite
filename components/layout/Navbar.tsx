@@ -5,18 +5,22 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// การตั้งค่าลิงก์นำทาง (Navigation links)
 const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '#about' },
+    { name: 'Education', href: '#education' },
     { name: 'Experience', href: '#experience' },
     { name: 'Portfolio', href: '#portfolio' },
     { name: 'Contact', href: '#contact' },
 ];
 
+// Component แถบนำทางแบบ Responsive
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
+    // จัดการ effect เมื่อเลื่อนหน้าจอเพื่อเปลี่ยนพื้นหลัง navbar
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);

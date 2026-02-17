@@ -6,9 +6,11 @@ import Certification from '@/components/sections/Certification';
 import Portfolio from '@/components/sections/Portfolio';
 import Contact from '@/components/sections/Contact';
 
+// Component หน้า Landing Page หลัก
 export default function Home() {
   return (
     <>
+      {/* แสดงผลทุก sections ของ portfolio แบบหน้าเดียว */}
       <Hero />
       <About />
       <Education />

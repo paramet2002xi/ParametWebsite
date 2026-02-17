@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Briefcase } from 'lucide-react';
 
+// ข้อมูลประสบการณ์ทำงานรวมถึง บทบาท, บริษัท, ช่วงเวลา, และรายละเอียด
 const experiences = [
     {
         id: 1,
@@ -37,6 +38,7 @@ export default function Experience() {
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </motion.div>
 
+                {/* การจัดวางแบบ Timeline คล้ายส่วน Education */}
                 <div className="relative border-l border-slate-200 ml-3 md:ml-6 space-y-12">
                     {experiences.map((exp, index) => (
                         <motion.div

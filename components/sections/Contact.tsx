@@ -22,6 +22,7 @@ export default function Contact() {
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                    {/* ซ้าย: ข้อมูลการติดต่อ */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -71,6 +72,7 @@ export default function Contact() {
                         </div>
                     </motion.div>
 
+                    {/* ขวา: แบบฟอร์มติดต่อ */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
