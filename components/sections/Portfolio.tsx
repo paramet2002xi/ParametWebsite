@@ -27,27 +27,15 @@ export default function Portfolio() {
                     {projects.map((project, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
                             className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-100 flex flex-col"
                         >
                             <div className="relative h-56 bg-slate-200 group overflow-hidden">
-                                {/* Ideally use Image component with local file */}
-                                {/* <Image src={project.image} alt={project.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" /> */}
-
-                                <div className="absolute inset-0 flex items-center justify-center bg-slate-100 text-slate-400">
-                                    {/* Placeholder logic if image loads fail or for valid next/image usage later */}
-                                    {project.image.includes('placeholder') ? (
-                                        <span>Project Image</span>
-                                    ) : (
-                                        <div className="text-center p-4">
-                                            <Layout className="w-12 h-12 mx-auto mb-2 text-blue-300" />
-                                            <span className="text-sm font-medium text-slate-500">Image: {project.image}</span>
-                                        </div>
-                                    )}
-                                </div>
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
                             </div>
 
                             <div className="p-6 flex flex-col flex-grow">

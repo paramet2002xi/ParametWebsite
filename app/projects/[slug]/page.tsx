@@ -94,45 +94,107 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative h-[350px] md:h-[500px] w-full flex items-center justify-center order-1 lg:order-2 perspective-1000"
+                        className="relative h-[400px] md:h-[600px] w-full flex items-center justify-center order-1 lg:order-2 perspective-1000"
                     >
-                        <div className="relative w-full h-full flex items-center justify-center">
-                            {/* Back Image (Home Page) */}
-                            <motion.div
-                                className="absolute top-[12%] left-[-2%] lg:left-[-5%] w-[95%] md:w-[90%] aspect-[16/10] bg-slate-900 rounded-lg shadow-2xl overflow-hidden z-10 transform -rotate-[15deg] opacity-60 border-[6px] border-slate-800/50"
-                                initial={{ y: -20, opacity: 0, rotate: -15, scale: 0.9 }}
-                                animate={{ y: 0, opacity: 0.6, rotate: -15, scale: 0.9 }}
-                                transition={{ delay: 0.4, duration: 0.8 }}
-                            >
-                                <div className="relative w-full h-full bg-slate-100">
-                                    <Image
-                                        src="/Projects/iBusiness Corporation/Perform/1-1 Edit Home.png"
-                                        alt="iBusiness Home Page"
-                                        fill
-                                        className="object-cover object-top opacity-80 mix-blend-multiply"
-                                    />
-                                </div>
-                            </motion.div>
+                        {project.type === 'mobile' ? (
+                            // MOBILE LAYOUT (iPhone 17 Style - Ultra thin bezels)
+                            <div className="relative w-full h-full flex items-center justify-center">
+                                {/* Back Phone (Splash/Login) */}
+                                <motion.div
+                                    className="absolute top-[10%] left-[20%] lg:left-[25%] w-[45%] md:w-[40%] aspect-[9/19] z-10"
+                                    initial={{ y: -20, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.4, duration: 0.8 }}
+                                >
+                                    <motion.div
+                                        className="w-full h-full bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden border-[4px] border-slate-800"
+                                        animate={{ rotate: -12, y: [0, -12, 0] }}
+                                        transition={{
+                                            rotate: { duration: 0 },
+                                            y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+                                        }}
+                                    >
+                                        {/* Phone Content */}
+                                        <div className="relative w-full h-full bg-slate-800">
+                                            <Image
+                                                src={project.caseStudy.gallery?.[0]?.src || project.image}
+                                                alt={`${project.title} - Main Screen`}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
 
-                            {/* Front Image (About Page) */}
-                            <motion.div
-                                className="absolute top-[18%] left-[8%] lg:left-[8%] w-[95%] md:w-[90%] aspect-[16/10] bg-white rounded-lg shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden z-20 transform -rotate-[8deg] border border-slate-200/50 ring-1 ring-slate-900/5"
-                                initial={{ y: 40, opacity: 0, rotate: -8 }}
-                                animate={{ y: 0, opacity: 1, rotate: -8 }}
-                                transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-                            >
-                                <div className="relative w-full h-full">
-                                    <Image
-                                        src="/Projects/iBusiness Corporation/Perform/1-2 About.png"
-                                        alt="iBusiness About Page"
-                                        fill
-                                        className="object-cover object-top"
-                                    />
-                                    {/* Glass reflection effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
-                                </div>
-                            </motion.div>
-                        </div>
+                                {/* Front Phone (Home/Main) */}
+                                <motion.div
+                                    className="absolute top-[15%] right-[20%] lg:right-[25%] w-[45%] md:w-[40%] aspect-[9/19] z-20"
+                                    initial={{ y: 40, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+                                >
+                                    <motion.div
+                                        className="w-full h-full bg-slate-900 rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)] overflow-hidden border-[4px] border-slate-800 ring-1 ring-slate-900/5"
+                                        animate={{ rotate: -6, y: [0, -15, 0] }}
+                                        transition={{
+                                            rotate: { duration: 0 },
+                                            y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }
+                                        }}
+                                    >
+                                        {/* Phone Content */}
+                                        <div className="relative w-full h-full bg-white">
+                                            <Image
+                                                src={project.caseStudy.gallery?.[2]?.src || project.caseStudy.gallery?.[1]?.src || project.image}
+                                                alt={`${project.title} - Secondary Screen`}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                            {/* Glass reflection effect */}
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            </div>
+                        ) : (
+                            // WEB LAYOUT (Landscape Desktop)
+                            <div className="relative w-full h-full flex items-center justify-center">
+                                {/* Back Image (Home Page) */}
+                                <motion.div
+                                    className="absolute top-[12%] left-[-2%] lg:left-[-5%] w-[95%] md:w-[90%] aspect-[16/10] bg-slate-900 rounded-lg shadow-2xl overflow-hidden z-10 transform -rotate-[15deg] opacity-60 border-[6px] border-slate-800/50"
+                                    initial={{ y: -20, opacity: 0, rotate: -15, scale: 0.9 }}
+                                    animate={{ y: 0, opacity: 0.6, rotate: -15, scale: 0.9 }}
+                                    transition={{ delay: 0.4, duration: 0.8 }}
+                                >
+                                    <div className="relative w-full h-full bg-slate-100">
+                                        <Image
+                                            src={project.caseStudy.gallery?.[0]?.src || project.image}
+                                            alt={`${project.title} - Main Screen`}
+                                            fill
+                                            className="object-cover object-top opacity-80 mix-blend-multiply"
+                                        />
+                                    </div>
+                                </motion.div>
+
+                                {/* Front Image (About Page) */}
+                                <motion.div
+                                    className="absolute top-[18%] left-[8%] lg:left-[8%] w-[95%] md:w-[90%] aspect-[16/10] bg-white rounded-lg shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden z-20 transform -rotate-[8deg] border border-slate-200/50 ring-1 ring-slate-900/5"
+                                    initial={{ y: 40, opacity: 0, rotate: -8 }}
+                                    animate={{ y: 0, opacity: 1, rotate: -8 }}
+                                    transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+                                >
+                                    <div className="relative w-full h-full">
+                                        <Image
+                                            src={project.caseStudy.gallery?.[1]?.src || project.caseStudy.gallery?.[0]?.src || project.image}
+                                            alt={`${project.title} - Secondary Screen`}
+                                            fill
+                                            className="object-cover object-top"
+                                        />
+                                        {/* Glass reflection effect */}
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        )}
                     </motion.div>
                 </div>
             </section>
@@ -186,23 +248,80 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                                 <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
                                     <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-red-400"></div>
-                                        The Challenge
+                                        Problems & Obstacles
                                     </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        {project.caseStudy.problem}
-                                    </p>
+                                    {Array.isArray(project.caseStudy.problem) ? (
+                                        <ul className="list-disc pl-5 space-y-2 text-slate-600 leading-relaxed">
+                                            {project.caseStudy.problem.map((item: string, i: number) => (
+                                                <li key={i}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-slate-600 leading-relaxed">
+                                            {project.caseStudy.problem}
+                                        </p>
+                                    )}
                                 </div>
                                 <div className="bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
                                     <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                                         The Solution
                                     </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        {project.caseStudy.solution}
-                                    </p>
+                                    {Array.isArray(project.caseStudy.solution) ? (
+                                        <ul className="list-disc pl-5 space-y-2 text-slate-600 leading-relaxed">
+                                            {project.caseStudy.solution.map((item: string, i: number) => (
+                                                <li key={i}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-slate-600 leading-relaxed">
+                                            {project.caseStudy.solution}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 2.5 TARGET USER SECTION */}
+            <section className="py-24 bg-zinc-900">
+                <div className="max-w-7xl mx-auto px-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-16"
+                    >
+                        <h2 className="text-3xl font-bold text-white mb-4 uppercase tracking-wider">Target User</h2>
+                        <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+                    </motion.div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: 'Customers', desc: 'Looking for portfolio or service information' },
+                            { title: 'Partners', desc: 'Seeking business collaboration and contact' },
+                            { title: 'Job Applicants', desc: 'Interested in the organization culture and jobs' },
+                            { title: 'Internal Staff', desc: 'Using internal tools and resources' }
+                        ].map((item, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 hover:border-blue-500/50 transition-colors group"
+                            >
+                                <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                                    <span className="text-blue-400 font-bold text-xl">{index + 1}</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                                <p className="text-slate-400 leading-relaxed text-sm">
+                                    {item.desc}
+                                </p>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -221,38 +340,74 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                     </motion.div>
 
                     <div className="bg-white p-10 md:p-16 rounded-3xl shadow-sm border border-slate-200 overflow-x-auto">
-                        <div className="min-w-[768px] flex flex-col items-center">
-                            {/* Home Node */}
-                            <div className="bg-slate-900 text-white px-8 py-3 rounded-lg font-bold shadow-lg mb-10 relative z-10">
+                        <div className="min-w-[900px] flex flex-col items-center">
+                            {/* Level 1: Home Node */}
+                            <div className="bg-slate-900 text-white px-10 py-4 rounded-xl font-bold shadow-lg mb-12 relative z-10 border-4 border-slate-100">
                                 HOME PAGE
+                                {/* Vertical Line Down */}
+                                <div className="absolute left-1/2 -translate-x-1/2 top-full h-8 w-0.5 bg-slate-300"></div>
                             </div>
 
-                            {/* Connecting Lines */}
-                            <div className="relative w-full max-w-4xl h-8 mb-4">
-                                {/* Vertical from Home */}
-                                <div className="absolute left-1/2 -translate-x-1/2 -top-10 h-10 w-0.5 bg-slate-300"></div>
-                                {/* Horizontal Bar */}
-                                <div className="absolute top-0 left-10 right-10 h-0.5 bg-slate-300"></div>
-                                {/* Vertical Connectors */}
-                                <div className="absolute top-0 left-10 h-8 w-0.5 bg-slate-300"></div>
-                                <div className="absolute top-0 left-1/4 h-8 w-0.5 bg-slate-300"></div>
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 h-8 w-0.5 bg-slate-300"></div>
-                                <div className="absolute top-0 right-1/4 h-8 w-0.5 bg-slate-300"></div>
-                                <div className="absolute top-0 right-10 h-8 w-0.5 bg-slate-300"></div>
-                            </div>
+                            {/* Level 2: Categories */}
+                            <div className="relative w-full grid grid-cols-6 gap-4">
+                                {/* Horizontal Connecting Line */}
+                                <div className="absolute top-0 left-[8.33%] right-[8.33%] h-0.5 bg-slate-300 -translate-y-4"></div>
 
-                            {/* Second Level Nodes */}
-                            <div className="grid grid-cols-5 gap-4 w-full max-w-4xl">
-                                {['About Us', 'Services', 'News', 'Showcase', 'Contact'].map((item, i) => (
-                                    <div key={i} className="flex flex-col items-center">
-                                        <div className="w-full bg-blue-50 border border-blue-100 py-3 rounded-lg text-blue-700 font-semibold text-sm text-center shadow-sm mb-2 hover:shadow-md transition-shadow">
-                                            {item}
+                                {/* Vertical Connector to Home */}
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 h-4 w-0.5 bg-slate-300"></div>
+
+                                {[
+                                    {
+                                        title: 'About',
+                                        children: ['Company', 'Our Story']
+                                    },
+                                    {
+                                        title: 'Services',
+                                        children: ['Services 1', 'Services 2', 'Services 3', 'Services 4']
+                                    },
+                                    {
+                                        title: 'Showcase',
+                                        children: ['Showcase 1', 'Showcase 2', 'Showcase 3', 'Other']
+                                    },
+                                    {
+                                        title: 'Jobs',
+                                        children: []
+                                    },
+                                    {
+                                        title: 'News & Activity',
+                                        children: []
+                                    },
+                                    {
+                                        title: 'Contact',
+                                        children: []
+                                    }
+                                ].map((category, i) => (
+                                    <div key={i} className="flex flex-col items-center relative">
+                                        {/* Vertical Line Up to Horizontal Bar */}
+                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 h-4 w-0.5 bg-slate-300"></div>
+
+                                        {/* Category Box */}
+                                        <div className="w-full bg-blue-50 border border-blue-200 py-4 rounded-xl text-blue-800 font-bold text-center shadow-sm mb-4 relative z-10">
+                                            {category.title}
+                                            {/* Vertical Line Down to Children (if any) */}
+                                            {category.children.length > 0 && (
+                                                <div className="absolute left-1/2 -translate-x-1/2 top-full h-4 w-0.5 bg-slate-300"></div>
+                                            )}
                                         </div>
-                                        {/* Sub-pages indicator */}
-                                        <div className="w-0.5 h-3 bg-slate-300"></div>
-                                        <div className="w-[90%] bg-white border border-slate-200 py-2 rounded text-slate-400 text-[10px] text-center uppercase tracking-wider">
-                                            Details
-                                        </div>
+
+                                        {/* Level 3: Children */}
+                                        {category.children.length > 0 && (
+                                            <div className="flex flex-col gap-3 w-full pt-4 relative">
+                                                {/* Vertical Spine Line */}
+                                                <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[calc(100%-20px)] w-0.5 bg-slate-300 -z-0"></div>
+
+                                                {category.children.map((child, j) => (
+                                                    <div key={j} className="relative z-10 bg-white border border-slate-200 py-3 rounded-lg text-slate-600 text-sm font-medium text-center shadow-sm hover:shadow-md transition-shadow hover:border-blue-300 hover:text-blue-600">
+                                                        {child}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -285,24 +440,20 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                             <div className="space-y-8">
                                 <div>
                                     <p className="text-sm text-slate-500 mb-2 uppercase tracking-wider">Font Family</p>
-                                    <p className="text-5xl font-bold text-slate-900">Inter</p>
+                                    <p className="text-5xl font-bold text-slate-900">{project.caseStudy.designSystem?.typography?.fontFamily || 'Inter'}</p>
                                 </div>
                                 <div className="space-y-4">
-                                    <div className="flex items-baseline justify-between border-b border-slate-200 pb-2">
-                                        <span className="text-2xl font-bold text-slate-900">Heading 1</span>
-                                        <span className="text-slate-400 text-sm">Bold / 36px</span>
-                                    </div>
-                                    <div className="flex items-baseline justify-between border-b border-slate-200 pb-2">
-                                        <span className="text-xl font-semibold text-slate-900">Heading 2</span>
-                                        <span className="text-slate-400 text-sm">SemiBold / 24px</span>
-                                    </div>
-                                    <div className="flex items-baseline justify-between border-b border-slate-200 pb-2">
-                                        <span className="text-base font-medium text-slate-900">Body Text</span>
-                                        <span className="text-slate-400 text-sm">Medium / 16px</span>
-                                    </div>
+                                    {project.caseStudy.designSystem?.typography?.scale?.map((type: any, index: number) => (
+                                        <div key={index} className="flex items-baseline justify-between border-b border-slate-200 pb-2">
+                                            <span className="text-lg font-bold text-slate-900">{type.level}</span>
+                                            <span className="text-slate-400 text-sm">{type.weight} / {type.size}</span>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
+
                         </div>
+
 
                         {/* Colors */}
                         <div className="bg-slate-50 p-10 rounded-3xl border border-slate-100">
@@ -315,41 +466,18 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                             </h3>
 
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                                <div className="space-y-3">
-                                    <div className="w-full aspect-square bg-[#007AFF] rounded-2xl shadow-lg shadow-blue-200"></div>
-                                    <div>
-                                        <p className="font-bold text-slate-900">Primary Blue</p>
-                                        <p className="text-xs text-slate-400">#007AFF</p>
+                                {project.caseStudy.designSystem?.colors?.map((color: any, index: number) => (
+                                    <div key={index} className="space-y-3">
+                                        <div
+                                            className="w-full aspect-square rounded-2xl shadow-md border border-slate-100"
+                                            style={{ backgroundColor: color.value }}
+                                        ></div>
+                                        <div>
+                                            <p className="font-bold text-slate-900">{color.name}</p>
+                                            <p className="text-xs text-slate-400">{color.value}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="space-y-3">
-                                    <div className="w-full aspect-square bg-[#1E293B] rounded-2xl shadow-lg"></div>
-                                    <div>
-                                        <p className="font-bold text-slate-900">Slate 900</p>
-                                        <p className="text-xs text-slate-400">#1E293B</p>
-                                    </div>
-                                </div>
-                                <div className="space-y-3">
-                                    <div className="w-full aspect-square bg-[#64748B] rounded-2xl shadow-md"></div>
-                                    <div>
-                                        <p className="font-bold text-slate-900">Slate 500</p>
-                                        <p className="text-xs text-slate-400">#64748B</p>
-                                    </div>
-                                </div>
-                                <div className="space-y-3">
-                                    <div className="w-full aspect-square bg-[#F1F5F9] rounded-2xl border border-slate-200"></div>
-                                    <div>
-                                        <p className="font-bold text-slate-900">Slate 100</p>
-                                        <p className="text-xs text-slate-400">#F1F5F9</p>
-                                    </div>
-                                </div>
-                                <div className="space-y-3">
-                                    <div className="w-full aspect-square bg-white rounded-2xl border border-slate-200"></div>
-                                    <div>
-                                        <p className="font-bold text-slate-900">White</p>
-                                        <p className="text-xs text-slate-400">#FFFFFF</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -357,7 +485,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
             </section>
 
             {/* 5. UI SHOWCASE */}
-            <section className="py-24 bg-slate-900 text-white">
+            <section className="py-24 bg-zinc-900 text-white">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -370,14 +498,9 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                         <p className="text-slate-400 max-w-2xl mx-auto">High-fidelity screens designed with focus on usability, accessibility, and visual hierarchy.</p>
                     </motion.div>
 
-                    {/* Desktop Screens */}
+                    {/* Main Screens (First 4) */}
                     <div className="grid md:grid-cols-2 gap-8 mb-20">
-                        {[
-                            { src: '/Projects/iBusiness Corporation/Perform/1-1 Edit Home.png', title: 'Home Page' },
-                            { src: '/Projects/iBusiness Corporation/Perform/1-2 About.png', title: 'About Us' },
-                            { src: '/Projects/iBusiness Corporation/Perform/1-7 News & Activity.png', title: 'News & Activity' },
-                            { src: '/Projects/iBusiness Corporation/Perform/1-8 Contact.png', title: 'Contact Us' }
-                        ].map((item, idx) => (
+                        {project.caseStudy.gallery?.slice(0, 4).map((item: any, idx: number) => (
                             <motion.div
                                 key={idx}
                                 initial={{ opacity: 0, y: 20 }}
@@ -404,14 +527,9 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                         ))}
                     </div>
 
-                    {/* Mobile Screens */}
+                    {/* Secondary/Mobile Screens (Next 4) */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        {[
-                            '/Projects/iBusiness Corporation/Perform/1-3 Services.png',
-                            '/Projects/iBusiness Corporation/Perform/1-4 Showcase.png',
-                            '/Projects/iBusiness Corporation/Perform/1-7-1 News & Activity.png',
-                            '/Projects/iBusiness Corporation/Perform/1-4-1 Showcase-DITP CARE.png'
-                        ].map((src, index) => (
+                        {project.caseStudy.gallery?.slice(4, 8).map((item: any, index: number) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: 20 }}
@@ -422,8 +540,8 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                             >
                                 <div className="absolute inset-0">
                                     <Image
-                                        src={src}
-                                        alt={`Mobile UI ${index}`}
+                                        src={item.src}
+                                        alt={item.title}
                                         fill
                                         className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
                                     />
@@ -435,11 +553,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
             </section>
 
             {/* FOOTER */}
-            <div className="bg-zinc-950 border-t border-zinc-900 py-16 text-center">
-                <Link href="/#portfolio" className="text-slate-500 hover:text-white transition-colors uppercase tracking-widest text-sm">
-                    Back to All Projects
-                </Link>
-            </div>
+
         </main>
     );
 }
