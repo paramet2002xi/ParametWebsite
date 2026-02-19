@@ -6,8 +6,12 @@ import Image from 'next/image';
 
 import { projects } from '@/lib/data';
 import Link from 'next/link';
+import { useLanguage, t } from '@/lib/LanguageContext';
+import { translations } from '@/lib/translations';
 
 export default function Portfolio() {
+    const { lang } = useLanguage();
+
     return (
         <section id="portfolio" className="py-20 bg-slate-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,7 +22,7 @@ export default function Portfolio() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Featured Projects</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">{t(translations.portfolio.title, lang)}</h2>
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </motion.div>
 
@@ -34,13 +38,15 @@ export default function Portfolio() {
                                     src={project.image}
                                     alt={project.title}
                                     fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                                 />
                             </div>
 
                             <div className="p-6 flex flex-col flex-grow">
                                 <h3 className="text-xl font-bold mb-2 text-slate-900">{project.title}</h3>
-                                <p className="text-slate-600 mb-4 text-sm leading-relaxed flex-grow">{project.description}</p>
+                                <div className="flex-grow mb-4">
+                                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-3">{project.description}</p>
+                                </div>
 
                                 <div className="flex flex-wrap gap-2 mb-6">
                                     {project.tags.map((tag) => (
@@ -57,7 +63,7 @@ export default function Portfolio() {
                                     </a>
                                     <Link href={`/projects/${project.id}`} className="flex items-center text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium">
                                         <ExternalLink size={18} className="mr-2" />
-                                        Case Study
+                                        {t(translations.portfolio.viewCaseStudy, lang)}
                                     </Link>
                                 </div>
                             </div>

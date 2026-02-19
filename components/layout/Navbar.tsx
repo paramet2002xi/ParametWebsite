@@ -2,40 +2,36 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// การตั้งค่าลิงก์นำทาง (Navigation links)
-const navLinks = [
-    { name: 'Home', href: '/' }, // href for Home is special case
-    { name: 'About', href: '#about' },
-    { name: 'Education', href: '#education' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' },
-];
+import { useLanguage, t } from '@/lib/LanguageContext';
+import { translations } from '@/lib/translations';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
+    const { lang, toggleLang } = useLanguage();
+
+    const navLinks = [
+        { name: t(translations.nav.home, lang), href: '/' },
+        { name: t(translations.nav.about, lang), href: '#about' },
+        { name: t(translations.nav.education, lang), href: '#education' },
+        { name: t(translations.nav.experience, lang), href: '#experience' },
+        { name: t(translations.nav.portfolio, lang), href: '#portfolio' },
+        { name: t(translations.nav.contact, lang), href: '#contact' },
+    ];
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
 
-            // Logic for calculating active section
-            const sections = navLinks.map(link => {
-                if (link.href === '/') return 'home';
-                return link.href.substring(1);
-            });
+            const sections = ['home', 'about', 'education', 'experience', 'portfolio', 'contact'];
 
             for (const section of sections) {
                 const element = document.getElementById(section);
                 if (element) {
                     const rect = element.getBoundingClientRect();
-                    // Check if the section is in the viewport (with some offset)
-                    // If the top of the section is within the top third of the viewport
                     if (rect.top <= 150 && rect.bottom >= 150) {
                         setActiveSection(section);
                         break;
@@ -45,11 +41,15 @@ export default function Navbar() {
         };
 
         window.addEventListener('scroll', handleScroll);
-        // Trigger once on mount
         handleScroll();
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const getSectionId = (href: string) => {
+        if (href === '/') return 'home';
+        return href.substring(1);
+    };
 
     return (
         <header
@@ -63,16 +63,15 @@ export default function Navbar() {
                             PORTFOLIO.
                         </Link>
                     </div>
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
+                    <div className="hidden md:flex items-center gap-1">
+                        <div className="flex items-baseline space-x-8 mr-6">
                             {navLinks.map((link) => {
-                                const isHome = link.href === '/';
-                                const sectionId = isHome ? 'home' : link.href.substring(1);
+                                const sectionId = getSectionId(link.href);
                                 const isActive = activeSection === sectionId;
 
                                 return (
                                     <Link
-                                        key={link.name}
+                                        key={link.href}
                                         href={link.href}
                                         className={`text-sm font-medium transition-colors duration-300 relative group ${isActive ? 'text-blue-600' : 'text-slate-700 hover:text-blue-600'
                                             }`}
@@ -84,8 +83,25 @@ export default function Navbar() {
                                 );
                             })}
                         </div>
+
+                        {/* Language Toggle */}
+                        <button
+                            onClick={toggleLang}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:border-blue-300 hover:text-blue-600 transition-all bg-white/80"
+                        >
+                            <Globe className="w-3.5 h-3.5" />
+                            {lang === 'en' ? 'TH' : 'EN'}
+                        </button>
                     </div>
-                    <div className="-mr-2 flex md:hidden">
+                    <div className="flex items-center gap-2 md:hidden">
+                        {/* Mobile Language Toggle */}
+                        <button
+                            onClick={toggleLang}
+                            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-slate-200 text-xs font-medium text-slate-600"
+                        >
+                            <Globe className="w-3 h-3" />
+                            {lang === 'en' ? 'TH' : 'EN'}
+                        </button>
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:text-blue-600 focus:outline-none"
@@ -107,18 +123,17 @@ export default function Navbar() {
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                             {navLinks.map((link) => {
-                                const isHome = link.href === '/';
-                                const sectionId = isHome ? 'home' : link.href.substring(1);
+                                const sectionId = getSectionId(link.href);
                                 const isActive = activeSection === sectionId;
 
                                 return (
                                     <Link
-                                        key={link.name}
+                                        key={link.href}
                                         href={link.href}
                                         onClick={() => setIsOpen(false)}
                                         className={`block px-3 py-2 rounded-md text-base font-medium transition-all ${isActive
-                                                ? 'text-blue-600 bg-blue-50'
-                                                : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                                            ? 'text-blue-600 bg-blue-50'
+                                            : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
                                             }`}
                                     >
                                         {link.name}

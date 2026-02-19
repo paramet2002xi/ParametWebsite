@@ -33,6 +33,12 @@ export const projects = [
                     ]
                 },
             },
+            targetUsers: [
+                { title: 'Customers', desc: 'Looking for portfolio or service information' },
+                { title: 'Partners', desc: 'Seeking business collaboration and contact' },
+                { title: 'Job Applicants', desc: 'Interested in the organization culture and jobs' },
+                { title: 'Internal Staff', desc: 'Using internal tools and resources' }
+            ],
             mainFeatures: [
                 "Responsive Design for all devices",
                 "Clean & Modern Corporate Identity",
@@ -106,16 +112,56 @@ export const projects = [
                     ]
                 },
             },
+            targetUsers: [
+                { title: 'Landowners', desc: 'Want to list and sell their land easily through a trusted platform' },
+                { title: 'Agents / Brokers', desc: 'Looking for a centralized tool to manage listings and connect with buyers' },
+                { title: 'Investors', desc: 'Seeking data-driven insights to evaluate land potential and investment opportunities' },
+                { title: 'Buyers', desc: 'Looking for the right land with transparent information and AI-assisted search' }
+            ],
+            empathyMap: {
+                say: [
+                    '"I want to sell my land at a fair price."',
+                    '"I don\'t know where to list it to reach real buyers."',
+                    '"My land has potential, but people don\'t seem to understand it."',
+                    '"I don\'t want brokers to undervalue my property."',
+                    '"I want the selling process to be simple and hassle-free."'
+                ],
+                think: [
+                    '"What if I set the wrong price and can\'t sell it?"',
+                    '"Are the people contacting me serious buyers?"',
+                    '"What can my land realistically be used for?"',
+                    '"How should I manage multiple land listings?"',
+                    '"I\'m afraid of being scammed or having weak bargaining power."'
+                ],
+                do: [
+                    'Searches for land-selling channels on Facebook, groups, and websites',
+                    'Lists the same property across multiple platforms using duplicated information',
+                    'Contacts multiple agents to compare options',
+                    'Responds to calls and messages from unknown-quality leads',
+                    'Manually tracks buyer inquiries and sales status without a clear system'
+                ],
+                feel: [
+                    'Anxious about not being able to sell or selling below market value',
+                    'Confused by inconsistent information and advice',
+                    'Tired of answering repetitive questions',
+                    'Lacks confidence in the buying-selling process',
+                    'Relieved and satisfied when finding a serious buyer'
+                ]
+            },
+            layoutGrid: {
+                description: "A design is only as strong as its invisible skeleton; our grid is the blueprint of luxury.",
+                mobile: { deviceWidth: '375px', contentWidth: '343px', columns: 4, gutter: '16px' }
+            },
             mainFeatures: ["Land Search & Map Integration", "Title Deed Management", "Legal Resources", "User Profile System"],
             gallery: [
                 { src: '/Projects/Ruthi/1-Splash.png', title: 'Splash Screen' },
                 { src: '/Projects/Ruthi/2-Login.png', title: 'Login' },
                 { src: '/Projects/Ruthi/3-Home.png', title: 'Home' },
+                { src: '/Projects/Ruthi/3.2-Search.png', title: 'Search' },
                 { src: '/Projects/Ruthi/5-Map.png', title: 'Map View' },
                 { src: '/Projects/Ruthi/4.2-Detail_Deed.png', title: 'Deed Details' },
                 { src: '/Projects/Ruthi/6-law.png', title: 'Legal Info' },
-                { src: '/Projects/Ruthi/7-Profile.png', title: 'Profile' },
-                { src: '/Projects/Ruthi/3.2-Search.png', title: 'Search' }
+                { src: '/Projects/Ruthi/7-Profile.png', title: 'Profile' }
             ]
         }
     },

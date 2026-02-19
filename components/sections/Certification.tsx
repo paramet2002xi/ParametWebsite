@@ -1,12 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Award, ExternalLink } from 'lucide-react';
+import { Award } from 'lucide-react';
+import Link from 'next/link';
+import { useLanguage, t } from '@/lib/LanguageContext';
+import { translations } from '@/lib/translations';
 
 // ข้อมูลใบรับรองพร้อมลิงก์ไปยังไฟล์ PDF
-const certifications = [
+export const certifications = [
     {
         id: 1,
+        slug: 'web-design-figma',
         title: 'WEB DESIGN (Figma)',
         organization: 'HACKaTHAILAND',
         year: '2023',
@@ -14,6 +18,7 @@ const certifications = [
     },
     {
         id: 2,
+        slug: 'mobile-app-design-figma',
         title: 'Mobile Application Design (Figma)',
         organization: 'HACKaTHAILAND',
         year: '2023',
@@ -21,17 +26,28 @@ const certifications = [
     },
     {
         id: 3,
+        slug: 'cybersecurity',
         title: 'Cybersecurity',
         organization: 'Information Technology Specialists',
         year: '2024',
         file: 'Certificate_Cybersecurity_Paramet Kumpapun.pdf',
     },
+    {
+        id: 4,
+        slug: 'create-apps-championship',
+        title: 'Create Apps Championship',
+        organization: 'Create Apps Championship',
+        year: '2025',
+        file: 'Create Apps Championship 2025-26..pdf',
+    },
 ];
 
 export default function Certification() {
+    const { lang } = useLanguage();
+
     return (
         <section id="certification" className="py-20 bg-white">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -39,11 +55,11 @@ export default function Certification() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Certifications</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t(translations.certification.title, lang)}</h2>
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </motion.div>
 
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                     {certifications.map((cert, index) => (
                         <motion.div
                             key={cert.id}
@@ -52,26 +68,19 @@ export default function Certification() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            {/* การ์ดที่ลิงก์ไปยังไฟล์ PDF */}
-                            <a
-                                href={`/Certificates/${cert.file}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-white p-6 rounded-xl border border-slate-200 flex flex-col items-center text-center hover:shadow-lg transition-all duration-300 hover:border-blue-200 group h-full relative"
+                            <Link
+                                href={`/certificates/${cert.slug}`}
+                                className="bg-white p-8 rounded-2xl border border-slate-200 flex flex-col items-center text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-blue-200 group h-full"
                             >
-                                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ExternalLink className="w-4 h-4 text-blue-400" />
+                                <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-5 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 group-hover:rounded-xl group-hover:scale-110">
+                                    <Award className="w-7 h-7" />
                                 </div>
-
-                                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                                    <Award className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{cert.title}</h3>
-                                <p className="text-slate-500 text-sm mb-4 flex-grow">{cert.organization}</p>
-                                <span className="text-xs font-medium text-slate-500 bg-slate-50 px-2 py-1 rounded border border-slate-200 group-hover:border-blue-100 group-hover:bg-blue-50/50 transition-colors">
+                                <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors leading-snug">{cert.title}</h3>
+                                <p className="text-slate-400 text-sm mb-5 flex-grow">{cert.organization}</p>
+                                <span className="text-xs font-semibold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100 group-hover:border-blue-200 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
                                     {cert.year}
                                 </span>
-                            </a>
+                            </Link>
                         </motion.div>
                     ))}
                 </div>

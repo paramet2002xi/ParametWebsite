@@ -1,17 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-
-// ข้อมูลหมวดหมู่ทักษะและรายการทักษะต่างๆ
-const skills = {
-    'Design & UX': ['UX Research', 'Wireframing & Prototyping', 'Design Systems', 'UI Components', 'UI Design'],
-    'Tools & AI': ['Figma', 'Adobe Photoshop', 'Canva', 'Chat GPT', 'Gemini', 'Perplexity', 'Stitch', 'NotebookLM'],
-    Technical: ['HTML', 'CSS', 'JavaScript', 'Next.js', 'Tailwind CSS', 'MySQL'],
-    'Soft Skills': ['Cross-team Collaboration', 'Analytical & Systematic Thinking', 'Problem Solving', 'Active Learning & Adaptability', 'Attention to Detail'],
-    Languages: ['Thai (Native)', 'English (Intermediate)'],
-};
+import { useLanguage, t } from '@/lib/LanguageContext';
+import { translations } from '@/lib/translations';
 
 export default function About() {
+    const { lang } = useLanguage();
+
+    const skillCategories = Object.keys(translations.about.skills) as Array<keyof typeof translations.about.skills>;
+
     return (
         <section id="about" className="py-20 bg-slate-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +19,7 @@ export default function About() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t(translations.about.title, lang)}</h2>
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </motion.div>
 
@@ -34,12 +31,12 @@ export default function About() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        <h3 className="text-2xl font-bold mb-4 text-slate-900">UX/UI Designer</h3>
+                        <h3 className="text-2xl font-bold mb-4 text-slate-900">{t(translations.about.role, lang)}</h3>
                         <p className="text-slate-600 mb-6 leading-relaxed">
-                            I am a UX/UI Designer with experience in designing responsive websites and applications, focusing on user-centered design aligned with business objectives. I work across UX research, wireframing, and UI design, with a foundational understanding of frontend development that supports effective collaboration with development teams.
+                            {t(translations.about.desc1, lang)}
                         </p>
                         <p className="text-slate-600 mb-6 leading-relaxed">
-                            I aim to deliver practical, high-quality design solutions through clear workflows and teamwork.
+                            {t(translations.about.desc2, lang)}
                         </p>
                     </motion.div>
 
@@ -51,21 +48,27 @@ export default function About() {
                         transition={{ duration: 0.5, delay: 0.4 }}
                         className="grid gap-6"
                     >
-                        {Object.entries(skills).map(([category, items]) => (
-                            <div key={category} className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                                <h4 className="text-lg font-bold mb-3 text-blue-600">{category}</h4>
-                                <div className="flex flex-wrap gap-2">
-                                    {items.map((skill) => (
-                                        <span
-                                            key={skill}
-                                            className="px-3 py-1 text-sm bg-slate-50 border border-slate-200 rounded-md text-slate-700"
-                                        >
-                                            {skill}
-                                        </span>
-                                    ))}
+                        {skillCategories.map((category) => {
+                            const categoryTranslation = translations.about.skillCategories[category as keyof typeof translations.about.skillCategories];
+                            const displayName = categoryTranslation ? t(categoryTranslation, lang) : category;
+                            const skillItems = translations.about.skills[category];
+
+                            return (
+                                <div key={category} className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                    <h4 className="text-lg font-bold mb-3 text-blue-600">{displayName}</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {skillItems.map((skill, idx) => (
+                                            <span
+                                                key={idx}
+                                                className="px-3 py-1 text-sm bg-slate-50 border border-slate-200 rounded-md text-slate-700"
+                                            >
+                                                {t(skill, lang)}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </motion.div>
                 </div>
             </div>
