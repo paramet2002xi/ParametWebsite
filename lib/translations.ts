@@ -29,14 +29,14 @@ export const translations = {
     // ===== About =====
     about: {
         title: { en: 'About Me', th: 'เกี่ยวกับผม' },
-        role: { en: 'UX/UI Designer', th: 'นักออกแบบ UX/UI' },
+        role: { en: 'Product Strategist & AI Builder', th: 'นักวางกลยุทธ์ผลิตภัณฑ์ & AI Builder' },
         desc1: {
-            en: "I am a UX/UI Designer with experience in designing responsive websites and applications, focusing on user-centered design aligned with business objectives. I work across UX research, wireframing, and UI design, with a foundational understanding of frontend development that supports effective collaboration with development teams.",
-            th: "ผมเป็นนักออกแบบ UX/UI ที่มีประสบการณ์ในการออกแบบเว็บไซต์และแอปพลิเคชันแบบ Responsive โดยเน้นการออกแบบที่ผู้ใช้เป็นศูนย์กลางสอดคล้องกับเป้าหมายธุรกิจ ทำงานครอบคลุมทั้ง UX Research, Wireframing และ UI Design พร้อมความเข้าใจพื้นฐานด้าน Frontend Development ที่ช่วยให้ทำงานร่วมกับทีมพัฒนาได้อย่างมีประสิทธิภาพ"
+            en: "I'm Paramet. I am a motivated UX/UI Designer with a background in Computer Science. Although I graduated in Computer Science, my strong passion for design led me to independently study and develop skills in User Experience (UX) and User Interface (UI) design, starting from my third year at university.",
+            th: "ผมชื่อ ปรเมศวร์ ครับ ผมเป็น UX/UI Designer ที่มีความตั้งใจและมีพื้นฐานด้านวิทยาการคอมพิวเตอร์ แม้ว่าจะเรียนจบด้านนี้มา แต่ด้วยความหลงใหลในงานออกแบบ ทำให้ผมเริ่มศึกษาและพัฒนาทักษะด้าน User Experience (UX) และ User Interface (UI) ด้วยตัวเองตั้งแต่ช่วงปี 3 ในมหาวิทยาลัย"
         },
         desc2: {
-            en: "I aim to deliver practical, high-quality design solutions through clear workflows and teamwork.",
-            th: "ผมมุ่งมั่นส่งมอบผลงานออกแบบที่ใช้งานได้จริงและมีคุณภาพผ่านกระบวนการทำงานที่ชัดเจนและการทำงานเป็นทีม"
+            en: "I place great importance on creating meaningful user experiences, combined with visually appealing, user-friendly, and well-reasoned interfaces. Throughout my learning journey, I have continuously improved my skills by participating in various activities and studying UX/UI best practices, aiming to deliver design solutions that truly meet user needs and real-world contexts.",
+            th: "ผมให้ความสำคัญกับการสร้างประสบการณ์การใช้งานที่มีความหมาย ผสานกับ Interface ที่สวยงาม ใช้งานง่าย และมีเหตุผลรองรับ ตลอดการเรียนรู้ ผมมุ่งมั่นพัฒนาทักษะของตัวเองอย่างต่อเนื่องด้วยการเข้าร่วมกิจกรรมต่างๆ และศึกษาแนวทางปฏิบัติที่ดีที่สุดด้าน UX/UI เพื่อส่งมอบงานออกแบบที่ตอบโจทย์ความต้องการของผู้ใช้อย่างแท้จริง และนำไปใช้งานได้จริง"
         },
         skillCategories: {
             'Design & UX': { en: 'Design & UX', th: 'การออกแบบ & UX' },
@@ -44,6 +44,13 @@ export const translations = {
             'Technical': { en: 'Technical', th: 'เทคนิค' },
             'Soft Skills': { en: 'Soft Skills', th: 'ทักษะด้านอื่นๆ' },
             'Languages': { en: 'Languages', th: 'ภาษา' },
+        },
+        skillImpacts: {
+            'Design & UX': { en: 'Architect scalable, user-centric products that drive adoption and business growth.', th: 'ออกแบบโครงสร้างผลิตภัณฑ์ที่รองรับผู้ใช้จำนวนมาก และสร้างการเติบโตให้ธุรกิจ' },
+            'Tools & AI': { en: 'Leverage generative AI to 10x workflow efficiency and accelerate delivery.', th: 'ประยุกต์ใช้ AI เพื่อเพิ่มประสิทธิภาพการทำงานและเร่งสปีดการพัฒนา' },
+            'Technical': { en: 'Build scalable AI-driven web platforms (Next.js, Tailwind CSS, MySQL).', th: 'พัฒนาแพลตฟอร์มเว็บที่รองรับ AI ได้อย่างยืดหยุ่น (Next.js, Tailwind CSS, MySQL)' },
+            'Soft Skills': { en: 'Execute with founder-level ownership, strategic clarity, and adaptability.', th: 'ทำงานด้วยวิสัยทัศน์ระดับผู้ประกอบการ เน้นกลยุทธ์ที่ชัดเจนและการปรับตัว' },
+            'Languages': { en: 'Navigate global team dynamics with cross-cultural communication.', th: 'สื่อสารและทำงานร่วมกับทีมงานทั้งในและต่างประเทศได้อย่างไร้รอยต่อ' },
         },
         skills: {
             'Design & UX': [
@@ -172,6 +179,34 @@ export const translations = {
         messageLabel: { en: 'Message', th: 'ข้อความ' },
         messagePlaceholder: { en: 'Tell me about your project...', th: 'เล่าเกี่ยวกับโปรเจกต์ของคุณ...' },
         sendBtn: { en: 'Send Message', th: 'ส่งข้อความ' },
+    },
+
+    // ===== Project Details =====
+    project: {
+        backToPortfolio: { en: 'Back to Portfolio', th: 'กลับสู่หน้าผลงาน' },
+        role: { en: 'Role', th: 'บทบาท' },
+        timeline: { en: 'Timeline', th: 'ระยะเวลา' },
+        tools: { en: 'Tools', th: 'เครื่องมือ' },
+        overview: { en: 'Overview', th: 'ภาพรวม' },
+        problem: { en: 'Problem', th: 'ปัญหา' },
+        solution: { en: 'Solution', th: 'แนวทางแก้ไข' },
+        targetUsers: { en: 'Target Users', th: 'กลุ่มผู้ใช้งานเป้าหมาย' },
+        empathyMap: { en: 'Empathy Map', th: 'แผนผังความเข้าใจผู้ใช้' },
+        say: { en: 'Say', th: 'พูด (Say)' },
+        think: { en: 'Think', th: 'คิด (Think)' },
+        do: { en: 'Do', th: 'ทำ (Do)' },
+        feel: { en: 'Feel', th: 'รู้สึก (Feel)' },
+        designSystem: { en: 'Design System', th: 'ระบบการออกแบบ' },
+        colors: { en: 'Colors', th: 'สี' },
+        typography: { en: 'Typography', th: 'ตัวพิมพ์' },
+        layoutGrid: { en: 'Layout Grid', th: 'ระบบกริด' },
+        mobileGrid: { en: 'Mobile Grid', th: 'กริดสำหรับมือถือ' },
+        deviceWidth: { en: 'Device Width', th: 'ความกว้างอุปกรณ์' },
+        contentWidth: { en: 'Content Width', th: 'ความกว้างเนื้อหา' },
+        columns: { en: 'Columns', th: 'คอลัมน์' },
+        gutter: { en: 'Gutter', th: 'ช่องว่าง' },
+        keyFeatures: { en: 'Key Features', th: 'ฟีเจอร์หลัก' },
+        gallery: { en: 'Gallery', th: 'แกลลอรี' },
     },
 
     // ===== Footer =====

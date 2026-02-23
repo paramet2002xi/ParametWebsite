@@ -4,7 +4,7 @@ export const projects = [
         type: 'web',
         title: 'iBusiness Corporation',
         description: 'A comprehensive website redesign for iBusiness Corporation. The project focused on modernizing the brand identity, improving user experience, and creating a responsive layout.',
-        tags: ['UX/UI Design', 'Figma', 'Web Design', 'Prototype'],
+        tags: ['UX/UI Design', 'Figma', 'Web Design'],
         github: '#',
         live: '#',
         image: '/Projects/iBusiness-Corporation/Perform/1-1-Edit-Home.png',
@@ -167,6 +167,7 @@ export const projects = [
     },
     {
         id: 'project-3',
+        type: 'web',
         title: 'Project 3 (Placeholder)',
         description: 'A brief description of your third project. Explain the key features and technologies used.',
         tags: ['Vue', 'Nuxt', 'Sass'],

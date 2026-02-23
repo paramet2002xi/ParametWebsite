@@ -7,6 +7,8 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, User, Wrench, CheckCircle2, Users, MessageCircle, Brain, Hand, Heart, Grid3X3 } from 'lucide-react';
 import { projects } from '@/lib/data';
 import { use } from 'react';
+import { useLanguage, t } from '@/lib/LanguageContext';
+import { translations } from '@/lib/translations';
 
 // ===== Animation Variants =====
 const fadeInUp = {
@@ -17,6 +19,7 @@ const fadeInUp = {
 
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
+    const { lang } = useLanguage();
     const project = projects.find(p => p.id === slug);
 
     if (!project) {
@@ -40,7 +43,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 max-w-7xl mx-auto">
                     <Link href="/#portfolio" className="flex items-center text-white/70 hover:text-white mb-6 transition-colors w-fit">
                         <ArrowLeft className="w-4 h-4 mr-2" />
-                        Back to Portfolio
+                        {t(translations.project.backToPortfolio, lang)}
                     </Link>
                     <motion.h1 {...fadeInUp} className="text-4xl md:text-6xl font-bold text-white mb-4">
                         {project.title}
@@ -55,28 +58,28 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 </div>
             </section>
 
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
                 {/* ===== Project Info Bar ===== */}
-                <motion.div {...fadeInUp} className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16 p-8 bg-slate-50 rounded-2xl border border-slate-100">
+                <motion.div {...fadeInUp} className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16 p-8 bg-slate-50 rounded-2xl border border-slate-100 place-items-center text-center">
                     <div className="flex items-start gap-3">
                         <User className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                         <div>
-                            <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Role</p>
+                            <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">{t(translations.project.role, lang)}</p>
                             <p className="text-sm font-semibold text-slate-900">{cs.myRole}</p>
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
                         <Clock className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                         <div>
-                            <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Timeline</p>
+                            <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">{t(translations.project.timeline, lang)}</p>
                             <p className="text-sm font-semibold text-slate-900">{cs.timeline}</p>
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
                         <Wrench className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                         <div>
-                            <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Tools</p>
+                            <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">{t(translations.project.tools, lang)}</p>
                             <p className="text-sm font-semibold text-slate-900">{cs.tools.join(', ')}</p>
                         </div>
                     </div>
@@ -86,7 +89,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 <motion.section {...fadeInUp} className="mb-16">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                         <span className="w-1 h-8 bg-blue-600 rounded-full"></span>
-                        Overview
+                        {t(translations.project.overview, lang)}
                     </h2>
                     <p className="text-slate-600 leading-relaxed text-lg">{cs.overview}</p>
                 </motion.section>
@@ -95,7 +98,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 <motion.section {...fadeInUp} className="mb-16">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                         <span className="w-1 h-8 bg-red-500 rounded-full"></span>
-                        Problem
+                        {t(translations.project.problem, lang)}
                     </h2>
                     {Array.isArray(cs.problem) ? (
                         <ul className="space-y-3">
@@ -115,7 +118,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 <motion.section {...fadeInUp} className="mb-16">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                         <span className="w-1 h-8 bg-green-500 rounded-full"></span>
-                        Solution
+                        {t(translations.project.solution, lang)}
                     </h2>
                     {Array.isArray(cs.solution) ? (
                         <ul className="space-y-3">
@@ -137,7 +140,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                         <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                             <span className="w-1 h-8 bg-purple-500 rounded-full"></span>
                             <Users className="w-6 h-6 text-purple-500" />
-                            Target Users
+                            {t(translations.project.targetUsers, lang)}
                         </h2>
                         <div className="grid md:grid-cols-2 gap-4">
                             {cs.targetUsers.map((user, i) => (
@@ -155,13 +158,13 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                     <motion.section {...fadeInUp} className="mb-16">
                         <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                             <span className="w-1 h-8 bg-pink-500 rounded-full"></span>
-                            Empathy Map
+                            {t(translations.project.empathyMap, lang)}
                         </h2>
                         <div className="grid md:grid-cols-2 gap-6">
                             {/* Say */}
                             <div className="p-6 bg-blue-50/50 border border-blue-100 rounded-xl">
                                 <h4 className="font-bold text-blue-700 mb-4 flex items-center gap-2">
-                                    <MessageCircle className="w-5 h-5" /> Say
+                                    <MessageCircle className="w-5 h-5" /> {t(translations.project.say, lang)}
                                 </h4>
                                 <ul className="space-y-2">
                                     {cs.empathyMap.say.map((item, i) => (
@@ -172,7 +175,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                             {/* Think */}
                             <div className="p-6 bg-yellow-50/50 border border-yellow-100 rounded-xl">
                                 <h4 className="font-bold text-yellow-700 mb-4 flex items-center gap-2">
-                                    <Brain className="w-5 h-5" /> Think
+                                    <Brain className="w-5 h-5" /> {t(translations.project.think, lang)}
                                 </h4>
                                 <ul className="space-y-2">
                                     {cs.empathyMap.think.map((item, i) => (
@@ -183,7 +186,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                             {/* Do */}
                             <div className="p-6 bg-green-50/50 border border-green-100 rounded-xl">
                                 <h4 className="font-bold text-green-700 mb-4 flex items-center gap-2">
-                                    <Hand className="w-5 h-5" /> Do
+                                    <Hand className="w-5 h-5" /> {t(translations.project.do, lang)}
                                 </h4>
                                 <ul className="space-y-2">
                                     {cs.empathyMap.do.map((item, i) => (
@@ -194,7 +197,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                             {/* Feel */}
                             <div className="p-6 bg-red-50/50 border border-red-100 rounded-xl">
                                 <h4 className="font-bold text-red-700 mb-4 flex items-center gap-2">
-                                    <Heart className="w-5 h-5" /> Feel
+                                    <Heart className="w-5 h-5" /> {t(translations.project.feel, lang)}
                                 </h4>
                                 <ul className="space-y-2">
                                     {cs.empathyMap.feel.map((item, i) => (
@@ -211,12 +214,12 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                     <motion.section {...fadeInUp} className="mb-16">
                         <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                             <span className="w-1 h-8 bg-indigo-500 rounded-full"></span>
-                            Design System
+                            {t(translations.project.designSystem, lang)}
                         </h2>
                         <div className="grid md:grid-cols-2 gap-8">
                             {/* Colors */}
                             <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
-                                <h4 className="font-bold text-slate-900 mb-4">Colors</h4>
+                                <h4 className="font-bold text-slate-900 mb-4">{t(translations.project.colors, lang)}</h4>
                                 <div className="space-y-3">
                                     {cs.designSystem.colors.map((color, i) => (
                                         <div key={i} className="flex items-center gap-3">
@@ -231,7 +234,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                             </div>
                             {/* Typography */}
                             <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
-                                <h4 className="font-bold text-slate-900 mb-4">Typography — {cs.designSystem.typography.fontFamily}</h4>
+                                <h4 className="font-bold text-slate-900 mb-4">{t(translations.project.typography, lang)} — {cs.designSystem.typography.fontFamily}</h4>
                                 <div className="space-y-3">
                                     {cs.designSystem.typography.scale.map((type, i) => (
                                         <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
@@ -251,27 +254,27 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                         <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                             <span className="w-1 h-8 bg-teal-500 rounded-full"></span>
                             <Grid3X3 className="w-6 h-6 text-teal-500" />
-                            Layout Grid
+                            {t(translations.project.layoutGrid, lang)}
                         </h2>
                         <p className="text-slate-600 mb-6 italic">{cs.layoutGrid.description}</p>
                         {cs.layoutGrid.mobile && (
                             <div className="p-6 bg-teal-50/50 border border-teal-100 rounded-xl">
-                                <h4 className="font-bold text-teal-700 mb-4">Mobile Grid</h4>
+                                <h4 className="font-bold text-teal-700 mb-4">{t(translations.project.mobileGrid, lang)}</h4>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     <div>
-                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Device Width</p>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">{t(translations.project.deviceWidth, lang)}</p>
                                         <p className="text-sm font-semibold text-slate-900">{cs.layoutGrid.mobile.deviceWidth}</p>
                                     </div>
                                     <div>
-                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Content Width</p>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">{t(translations.project.contentWidth, lang)}</p>
                                         <p className="text-sm font-semibold text-slate-900">{cs.layoutGrid.mobile.contentWidth}</p>
                                     </div>
                                     <div>
-                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Columns</p>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">{t(translations.project.columns, lang)}</p>
                                         <p className="text-sm font-semibold text-slate-900">{cs.layoutGrid.mobile.columns}</p>
                                     </div>
                                     <div>
-                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Gutter</p>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">{t(translations.project.gutter, lang)}</p>
                                         <p className="text-sm font-semibold text-slate-900">{cs.layoutGrid.mobile.gutter}</p>
                                     </div>
                                 </div>
@@ -285,7 +288,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                     <motion.section {...fadeInUp} className="mb-16">
                         <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                             <span className="w-1 h-8 bg-amber-500 rounded-full"></span>
-                            Key Features
+                            {t(translations.project.keyFeatures, lang)}
                         </h2>
                         <div className="grid md:grid-cols-2 gap-4">
                             {cs.mainFeatures.map((feature, i) => (
@@ -303,7 +306,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                     <motion.section {...fadeInUp} className="mb-16">
                         <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                             <span className="w-1 h-8 bg-cyan-500 rounded-full"></span>
-                            Gallery
+                            {t(translations.project.gallery, lang)}
                         </h2>
                         {/* ตรวจสอบว่าเป็นโปรเจกต์ Mobile หรือ Web สำหรับ Gallery Layout */}
                         {'type' in project && project.type === 'mobile' ? (
@@ -353,7 +356,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                         className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2" />
-                        Back to Portfolio
+                        {t(translations.project.backToPortfolio, lang)}
                     </Link>
                 </div>
             </div>

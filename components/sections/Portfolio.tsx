@@ -1,75 +1,112 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ExternalLink, Github, Layout, Palette } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-
-import { projects } from '@/lib/data';
 import Link from 'next/link';
+import { projects } from '@/lib/data';
 import { useLanguage, t } from '@/lib/LanguageContext';
 import { translations } from '@/lib/translations';
 
+// กำหนด Filter ที่ต้องการแสดง
+const filters = ['All', 'Web Design', 'Mobile App', 'Figma'];
+
 export default function Portfolio() {
     const { lang } = useLanguage();
+    const [activeFilter, setActiveFilter] = useState('All');
+
+    const filteredProjects = activeFilter === 'All'
+        ? projects
+        : projects.filter(p => {
+            if (activeFilter === 'Web Design') return p.type === 'web';
+            if (activeFilter === 'Mobile App') return p.type === 'mobile';
+            return p.tags.includes(activeFilter);
+        });
 
     return (
         <section id="portfolio" className="py-20 bg-slate-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* ===== Title ===== */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="text-center mb-16"
+                    className="text-center mb-12"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">{t(translations.portfolio.title, lang)}</h2>
-                    <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+                        {t(translations.portfolio.title, lang)}
+                    </h2>
+                    {/* Decorative curved underline */}
+                    <svg className="mx-auto" width="80" height="12" viewBox="0 0 80 12" fill="none">
+                        <path d="M2 10C20 2 60 2 78 10" stroke="#3B82F6" strokeWidth="3" strokeLinecap="round" />
+                    </svg>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {/* Map project data from lib/data (วนลูปแสดงข้อมูลโปรเจกต์) */}
-                    {projects.map((project, index) => (
-                        <motion.div
-                            key={index}
-                            className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-100 flex flex-col"
+                {/* ===== Filter Tabs ===== */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="flex flex-wrap justify-center gap-4 md:gap-8 mb-14"
+                >
+                    {filters.map((filter) => (
+                        <button
+                            key={filter}
+                            onClick={() => setActiveFilter(filter)}
+                            className={`text-sm md:text-base font-medium pb-1 transition-all duration-200 border-b-2 ${activeFilter === filter
+                                ? 'text-slate-900 border-slate-900'
+                                : 'text-slate-400 border-transparent hover:text-slate-600 hover:border-slate-300'
+                                }`}
                         >
-                            <div className="relative h-56 bg-slate-200 group overflow-hidden">
-                                <Image
-                                    src={project.image}
-                                    alt={project.title}
-                                    fill
-                                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                                />
-                            </div>
-
-                            <div className="p-6 flex flex-col flex-grow">
-                                <h3 className="text-xl font-bold mb-2 text-slate-900">{project.title}</h3>
-                                <div className="flex-grow mb-4">
-                                    <p className="text-slate-600 text-sm leading-relaxed line-clamp-3">{project.description}</p>
-                                </div>
-
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {project.tags.map((tag) => (
-                                        <span key={tag} className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                <div className="flex gap-4 pt-4 border-t border-slate-100">
-                                    <a href={project.github} className="flex items-center text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium">
-                                        <Github size={18} className="mr-2" />
-                                        Code
-                                    </a>
-                                    <Link href={`/projects/${project.id}`} className="flex items-center text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium">
-                                        <ExternalLink size={18} className="mr-2" />
-                                        {t(translations.portfolio.viewCaseStudy, lang)}
-                                    </Link>
-                                </div>
-                            </div>
-                        </motion.div>
+                            {filter === 'All'
+                                ? (lang === 'en' ? 'See All' : 'ดูทั้งหมด')
+                                : filter}
+                        </button>
                     ))}
-                </div>
+                </motion.div>
+
+                {/* ===== Project Grid ===== */}
+                <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <AnimatePresence mode="popLayout">
+                        {filteredProjects.map((project) => (
+                            <motion.div
+                                key={project.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <Link
+                                    href={`/projects/${project.id}`}
+                                    className="group block"
+                                >
+                                    {/* Image */}
+                                    <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-slate-100 mb-4">
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                    </div>
+
+                                    {/* Title */}
+                                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-1">
+                                        {project.title}
+                                    </h3>
+
+                                    {/* Category Subtitle */}
+                                    <p className="text-slate-500 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">
+                                        {project.tags[0]} • {project.id === 'ibusiness' ? '2023' : '2024'}
+                                    </p>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
             </div>
         </section>
     );
