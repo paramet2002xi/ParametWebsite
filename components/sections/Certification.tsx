@@ -43,7 +43,8 @@ export const certifications = [
 ];
 
 export default function Certification() {
-    const { lang } = useLanguage();
+    const { lang, mounted } = useLanguage();
+    const displayLang = mounted ? lang : 'en';
 
     return (
         <section id="certification" className="py-20 bg-white">
@@ -55,7 +56,7 @@ export default function Certification() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t(translations.certification.title, lang)}</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t(translations.certification.title, displayLang)}</h2>
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </motion.div>
 

@@ -40,7 +40,8 @@ const skillGroups: Record<string, string> = {
 };
 
 export default function About() {
-    const { lang } = useLanguage();
+    const { lang, mounted } = useLanguage();
+    const displayLang = mounted ? lang : 'en';
     const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
     const skillCategories = Object.keys(translations.about.skills) as Array<keyof typeof translations.about.skills>;
@@ -70,7 +71,7 @@ export default function About() {
                     className="text-center mb-16"
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
-                        {t(translations.about.title, lang)}
+                        {t(translations.about.title, displayLang)}
                     </h2>
                     {/* Decorative curved underline */}
                     <svg className="mx-auto" width="80" height="12" viewBox="0 0 80 12" fill="none">
@@ -87,10 +88,10 @@ export default function About() {
                     className="max-w-4xl mx-auto text-center mb-24 px-4"
                 >
                     <p className="text-slate-600 leading-relaxed mb-6">
-                        {t(translations.about.desc1, lang)}
+                        {t(translations.about.desc1, displayLang)}
                     </p>
                     <p className="text-slate-600 leading-relaxed">
-                        {t(translations.about.desc2, lang)}
+                        {t(translations.about.desc2, displayLang)}
                     </p>
                 </motion.div>
 
@@ -103,7 +104,7 @@ export default function About() {
                     className="text-center mb-16"
                 >
                     <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-                        {lang === 'en' ? 'Professional Skills' : 'ทักษะความเชี่ยวชาญ'}
+                        {displayLang === 'en' ? 'Professional Skills' : 'ทักษะความเชี่ยวชาญ'}
                     </h3>
                     <svg className="mx-auto" width="80" height="12" viewBox="0 0 80 12" fill="none">
                         <path d="M2 10C20 2 60 2 78 10" stroke="#3B82F6" strokeWidth="3" strokeLinecap="round" />
@@ -114,7 +115,7 @@ export default function About() {
                 <div className="flex flex-col gap-6">
                     {skillCategories.map((category, index) => {
                         const categoryTranslation = translations.about.skillCategories[category as keyof typeof translations.about.skillCategories];
-                        const displayName = categoryTranslation ? t(categoryTranslation, lang) : category;
+                        const displayName = categoryTranslation ? t(categoryTranslation, displayLang) : category;
                         const skillItems = translations.about.skills[category];
 
                         // @ts-ignore
@@ -150,7 +151,7 @@ export default function About() {
                                         <div>
                                             <p className="text-[11px] font-bold text-blue-600/80 uppercase tracking-widest mb-3">Business Impact</p>
                                             <p className="text-slate-700 leading-relaxed text-[15px] font-medium">
-                                                {impactSentence ? t(impactSentence, lang) : ''}
+                                                {impactSentence ? t(impactSentence, displayLang) : ''}
                                             </p>
                                         </div>
                                     </div>
@@ -181,7 +182,7 @@ export default function About() {
                                                                 : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                                                             }`}
                                                     >
-                                                        {t(skill, lang)}
+                                                        {t(skill, displayLang)}
                                                     </span>
                                                 );
                                             })}

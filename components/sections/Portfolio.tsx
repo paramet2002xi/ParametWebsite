@@ -12,7 +12,8 @@ import { translations } from '@/lib/translations';
 const filters = ['All', 'Web Design', 'Mobile App', 'Figma'];
 
 export default function Portfolio() {
-    const { lang } = useLanguage();
+    const { lang, mounted } = useLanguage();
+    const displayLang = mounted ? lang : 'en';
     const [activeFilter, setActiveFilter] = useState('All');
 
     const filteredProjects = activeFilter === 'All'
@@ -35,7 +36,7 @@ export default function Portfolio() {
                     className="text-center mb-12"
                 >
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-                        {t(translations.portfolio.title, lang)}
+                        {t(translations.portfolio.title, displayLang)}
                     </h2>
                     {/* Decorative curved underline */}
                     <svg className="mx-auto" width="80" height="12" viewBox="0 0 80 12" fill="none">
@@ -54,6 +55,7 @@ export default function Portfolio() {
                     {filters.map((filter) => (
                         <button
                             key={filter}
+                            suppressHydrationWarning
                             onClick={() => setActiveFilter(filter)}
                             className={`text-sm md:text-base font-medium pb-1 transition-all duration-200 border-b-2 ${activeFilter === filter
                                 ? 'text-slate-900 border-slate-900'
@@ -61,7 +63,7 @@ export default function Portfolio() {
                                 }`}
                         >
                             {filter === 'All'
-                                ? (lang === 'en' ? 'See All' : 'ดูทั้งหมด')
+                                ? (displayLang === 'en' ? 'See All' : 'ดูทั้งหมด')
                                 : filter}
                         </button>
                     ))}

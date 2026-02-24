@@ -6,7 +6,8 @@ import { useLanguage, t } from '@/lib/LanguageContext';
 import { translations } from '@/lib/translations';
 
 export default function Experience() {
-    const { lang } = useLanguage();
+    const { lang, mounted } = useLanguage();
+    const displayLang = mounted ? lang : 'en';
     const items = translations.experience.items;
 
     return (
@@ -19,7 +20,7 @@ export default function Experience() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t(translations.experience.title, lang)}</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t(translations.experience.title, displayLang)}</h2>
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
                 </motion.div>
 
@@ -39,14 +40,14 @@ export default function Experience() {
                             </div>
 
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                                <h3 className="text-xl font-bold text-slate-900">{t(exp.role, lang)}</h3>
+                                <h3 className="text-xl font-bold text-slate-900">{t(exp.role, displayLang)}</h3>
                                 <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit mt-2 sm:mt-0">
                                     {exp.period}
                                 </span>
                             </div>
-                            <h4 className="text-lg font-medium text-slate-700 mb-3">{t(exp.company, lang)}</h4>
+                            <h4 className="text-lg font-medium text-slate-700 mb-3">{t(exp.company, displayLang)}</h4>
                             <p className="text-slate-600 leading-relaxed">
-                                {t(exp.description, lang)}
+                                {t(exp.description, displayLang)}
                             </p>
                         </motion.div>
                     ))}

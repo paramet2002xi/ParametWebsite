@@ -7,12 +7,15 @@ interface LanguageContextType {
     lang: Lang;
     setLang: (lang: Lang) => void;
     toggleLang: () => void;
+    /** True after mount - use for rendering to avoid hydration mismatch with localStorage */
+    mounted: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
     lang: 'en',
     setLang: () => { },
     toggleLang: () => { },
+    mounted: false,
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -36,7 +39,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const toggleLang = () => setLang(prev => (prev === 'en' ? 'th' : 'en'));
 
     return (
-        <LanguageContext.Provider value={{ lang, setLang, toggleLang }}>
+        <LanguageContext.Provider value={{ lang, setLang, toggleLang, mounted }}>
             {children}
         </LanguageContext.Provider>
     );

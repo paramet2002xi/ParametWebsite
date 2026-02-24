@@ -8,7 +8,8 @@ import { useLanguage, t } from '@/lib/LanguageContext';
 import { translations } from '@/lib/translations';
 
 export default function Hero() {
-    const { lang } = useLanguage();
+    const { lang, mounted } = useLanguage();
+    const displayLang = mounted ? lang : 'en';
 
     return (
         <section id="home" className="min-h-screen flex items-center justify-center pt-24 pb-12 md:pt-0 bg-white overflow-hidden relative">
@@ -31,23 +32,23 @@ export default function Hero() {
                         className="flex-1 text-center md:text-left"
                     >
                         <span className="inline-block px-3 py-1 mb-6 text-sm font-medium text-blue-600 bg-blue-50 rounded-full">
-                            {t(translations.hero.badge, lang)}
+                            {t(translations.hero.badge, displayLang)}
                         </span>
 
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-tight">
-                            {t(translations.hero.greeting, lang)} <br />
+                            {t(translations.hero.greeting, displayLang)} <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
-                                {t(translations.hero.name, lang)}<br />
-                                {t(translations.hero.lastName, lang)}
+                                {t(translations.hero.name, displayLang)}<br />
+                                {t(translations.hero.lastName, displayLang)}
                             </span>
                         </h1>
 
                         <h2 className="text-2xl md:text-3xl font-medium text-slate-700 mb-6">
-                            {t(translations.hero.subtitle, lang)}
+                            {t(translations.hero.subtitle, displayLang)}
                         </h2>
 
                         <p className="text-lg text-slate-600 mb-10 max-w-lg mx-auto md:mx-0 leading-relaxed font-medium">
-                            {t(translations.hero.description, lang)}
+                            {t(translations.hero.description, displayLang)}
                         </p>
 
                         {/* ปุ่ม Call to Action */}
@@ -56,7 +57,7 @@ export default function Hero() {
                                 href="#contact"
                                 className="inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-200 hover:shadow-blue-300 hover:-translate-y-1"
                             >
-                                {t(translations.hero.letsTalk, lang)}
+                                {t(translations.hero.letsTalk, displayLang)}
                                 <ArrowRight className="ml-2 w-5 h-5" />
                             </Link>
 
@@ -64,7 +65,7 @@ export default function Hero() {
                                 href="/resume.pdf"
                                 className="inline-flex items-center justify-center px-8 py-3 text-base font-bold text-slate-600 bg-white border-2 border-slate-200 rounded-full hover:bg-slate-50 hover:text-blue-600 transition-all duration-300 hover:border-blue-600"
                             >
-                                {t(translations.hero.resume, lang)}
+                                {t(translations.hero.resume, displayLang)}
                                 <Download className="ml-2 w-5 h-5" />
                             </a>
                         </div>

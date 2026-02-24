@@ -11,15 +11,16 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
-    const { lang, toggleLang } = useLanguage();
+    const { lang, toggleLang, mounted } = useLanguage();
+    const displayLang = mounted ? lang : 'en';
 
     const navLinks = [
-        { name: t(translations.nav.home, lang), href: '/' },
-        { name: t(translations.nav.about, lang), href: '#about' },
-        { name: t(translations.nav.education, lang), href: '#education' },
-        { name: t(translations.nav.experience, lang), href: '#experience' },
-        { name: t(translations.nav.portfolio, lang), href: '#portfolio' },
-        { name: t(translations.nav.contact, lang), href: '#contact' },
+        { name: t(translations.nav.home, displayLang), href: '/' },
+        { name: t(translations.nav.about, displayLang), href: '#about' },
+        { name: t(translations.nav.education, displayLang), href: '#education' },
+        { name: t(translations.nav.experience, displayLang), href: '#experience' },
+        { name: t(translations.nav.portfolio, displayLang), href: '#portfolio' },
+        { name: t(translations.nav.contact, displayLang), href: '#contact' },
     ];
 
     useEffect(() => {
@@ -84,23 +85,25 @@ export default function Navbar() {
                             })}
                         </div>
 
-                        {/* Language Toggle */}
+                        {/* Language Toggle - suppressHydrationWarning for fdprocessedid from browser extensions */}
                         <button
+                            suppressHydrationWarning
                             onClick={toggleLang}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 text-sm font-medium text-slate-600 hover:border-blue-300 hover:text-blue-600 transition-all bg-white/80"
                         >
                             <Globe className="w-3.5 h-3.5" />
-                            {lang === 'en' ? 'TH' : 'EN'}
+                            {displayLang === 'en' ? 'TH' : 'EN'}
                         </button>
                     </div>
                     <div className="flex items-center gap-2 md:hidden">
-                        {/* Mobile Language Toggle */}
+                        {/* Mobile Language Toggle - suppressHydrationWarning for fdprocessedid from browser extensions */}
                         <button
+                            suppressHydrationWarning
                             onClick={toggleLang}
                             className="flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-slate-200 text-xs font-medium text-slate-600"
                         >
                             <Globe className="w-3 h-3" />
-                            {lang === 'en' ? 'TH' : 'EN'}
+                            {displayLang === 'en' ? 'TH' : 'EN'}
                         </button>
                         <button
                             onClick={() => setIsOpen(!isOpen)}
