@@ -25,7 +25,7 @@ export default function Portfolio() {
         });
 
     return (
-        <section id="portfolio" className="py-20 bg-slate-50">
+        <section id="portfolio" className="py-20 bg-stone-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* ===== Title ===== */}
                 <motion.div
@@ -70,40 +70,41 @@ export default function Portfolio() {
                 </motion.div>
 
                 {/* ===== Project Grid ===== */}
-                <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     <AnimatePresence mode="popLayout">
-                        {filteredProjects.map((project) => (
+                        {filteredProjects.map((project, index) => (
                             <motion.div
                                 key={project.id}
                                 layout
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.3 }}
+                                initial={{ opacity: 0, y: 24 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.96 }}
+                                transition={{ duration: 0.35, delay: index * 0.05 }}
                             >
                                 <Link
                                     href={`/projects/${project.id}`}
                                     className="group block"
                                 >
-                                    {/* Image */}
-                                    <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-slate-100 mb-4">
-                                        <Image
-                                            src={project.image}
-                                            alt={project.title}
-                                            fill
-                                            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                    </div>
+                                    <article className="flex flex-col">
+                                        {/* Image */}
+                                        <div className="relative aspect-[4/3.5] overflow-hidden mb-3">
+                                            <Image
+                                                src={project.image}
+                                                alt={project.title}
+                                                fill
+                                                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                            />
+                                        </div>
 
-                                    {/* Title */}
-                                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-1">
-                                        {project.title}
-                                    </h3>
-
-                                    {/* Category Subtitle */}
-                                    <p className="text-slate-500 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">
-                                        {project.tags[0]} • {project.id === 'ibusiness' ? '2023' : '2024'}
-                                    </p>
+                                        {/* Content - left-aligned, same titles & content */}
+                                        <h3 className="text-slate-900 font-medium text-[15px] md:text-base group-hover:text-slate-700 transition-colors line-clamp-2">
+                                            {project.title}
+                                        </h3>
+                                        <p className="text-slate-500 text-xs font-medium tracking-wider uppercase mt-1">
+                                            {project.tags[0]} · {project.id === 'ibusiness' ? '2023' : '2024'}
+                                        </p>
+                                    </article>
                                 </Link>
                             </motion.div>
                         ))}
